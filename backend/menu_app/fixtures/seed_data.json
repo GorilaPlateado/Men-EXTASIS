@@ -1,0 +1,58 @@
+[
+  {"model": "menu_app.categoria", "pk": 1, "fields": {"nombre": "Aperitivos", "orden": 1, "activo": true}},
+  {"model": "menu_app.categoria", "pk": 2, "fields": {"nombre": "Entrantes", "orden": 2, "activo": true}},
+  {"model": "menu_app.categoria", "pk": 3, "fields": {"nombre": "Ensaladas", "orden": 3, "activo": true}},
+  {"model": "menu_app.categoria", "pk": 4, "fields": {"nombre": "Platos Fuertes", "orden": 4, "activo": true}},
+  {"model": "menu_app.categoria", "pk": 5, "fields": {"nombre": "Pastas", "orden": 5, "activo": true}},
+  {"model": "menu_app.categoria", "pk": 6, "fields": {"nombre": "Bebidas", "orden": 6, "activo": true}},
+  {"model": "menu_app.categoria", "pk": 7, "fields": {"nombre": "Postres", "orden": 7, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 1, "fields": {"categoria": 1, "nombre": "Tostones", "precio": "200.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 2, "fields": {"categoria": 1, "nombre": "Croquetas de jamón", "precio": "250.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 3, "fields": {"categoria": 1, "nombre": "Empanadas cubanas", "precio": "280.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 4, "fields": {"categoria": 1, "nombre": "Pan con ajo", "precio": "150.00", "descripcion": "", "imagen": null, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 5, "fields": {"categoria": 2, "nombre": "Sopa de pollo cubana", "precio": "250.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 6, "fields": {"categoria": 2, "nombre": "Potaje cubano", "precio": "280.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 7, "fields": {"categoria": 2, "nombre": "Sopa de pescado", "precio": "300.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 8, "fields": {"categoria": 2, "nombre": "Caldo de res", "precio": "320.00", "descripcion": "", "imagen": null, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 9, "fields": {"categoria": 3, "nombre": "Ensalada César", "precio": "250.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 10, "fields": {"categoria": 3, "nombre": "Ensalada Mixta", "precio": "200.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 11, "fields": {"categoria": 3, "nombre": "Ensalada de cebolla", "precio": "180.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 12, "fields": {"categoria": 3, "nombre": "Ensalada de lechuga", "precio": "150.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 13, "fields": {"categoria": 3, "nombre": "Ensalada de pepinos", "precio": "180.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 14, "fields": {"categoria": 3, "nombre": "Ensalada fría", "precio": "220.00", "descripcion": "", "imagen": null, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 15, "fields": {"categoria": 4, "nombre": "Bistec de cerdo", "precio": "600.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 16, "fields": {"categoria": 4, "nombre": "Bistec de res", "precio": "700.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 17, "fields": {"categoria": 4, "nombre": "Jamón asado", "precio": "550.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 18, "fields": {"categoria": 4, "nombre": "Pollo en salsa", "precio": "500.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 19, "fields": {"categoria": 4, "nombre": "Pollo frito", "precio": "450.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 20, "fields": {"categoria": 4, "nombre": "Pollo asado", "precio": "500.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 21, "fields": {"categoria": 4, "nombre": "Pescado frito", "precio": "650.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 22, "fields": {"categoria": 4, "nombre": "Pescado en salsa", "precio": "700.00", "descripcion": "", "imagen": null, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 23, "fields": {"categoria": 5, "nombre": "Espaguetis Napolitanos", "precio": "500.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 24, "fields": {"categoria": 5, "nombre": "Espaguetis Carbonara", "precio": "350.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 25, "fields": {"categoria": 5, "nombre": "Espaguetis Boloñesa", "precio": "400.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 26, "fields": {"categoria": 5, "nombre": "Espaguetis al Pesto", "precio": "450.00", "descripcion": "", "imagen": null, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 27, "fields": {"categoria": 6, "nombre": "Cerveza Cristal", "precio": "120.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 28, "fields": {"categoria": 6, "nombre": "Bucanero", "precio": "150.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 29, "fields": {"categoria": 6, "nombre": "Heineken", "precio": "200.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 30, "fields": {"categoria": 6, "nombre": "Mojito", "precio": "250.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 31, "fields": {"categoria": 6, "nombre": "Cuba Libre", "precio": "250.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 32, "fields": {"categoria": 6, "nombre": "Daiquiri", "precio": "300.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 33, "fields": {"categoria": 6, "nombre": "Bloody Mary", "precio": "350.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 34, "fields": {"categoria": 6, "nombre": "Refresco Tukola", "precio": "80.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 35, "fields": {"categoria": 6, "nombre": "Refresco de Limón", "precio": "80.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 36, "fields": {"categoria": 6, "nombre": "Refresco de Naranja", "precio": "80.00", "descripcion": "", "imagen": null, "activo": true}},
+
+  {"model": "menu_app.producto", "pk": 37, "fields": {"categoria": 7, "nombre": "Flan de vainilla", "precio": "200.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 38, "fields": {"categoria": 7, "nombre": "Flan de coco", "precio": "220.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 39, "fields": {"categoria": 7, "nombre": "Flan de caramelo", "precio": "230.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 40, "fields": {"categoria": 7, "nombre": "Kake de chocolate", "precio": "300.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 41, "fields": {"categoria": 7, "nombre": "Pastel de guayaba", "precio": "280.00", "descripcion": "", "imagen": null, "activo": true}},
+  {"model": "menu_app.producto", "pk": 42, "fields": {"categoria": 7, "nombre": "Pastel de queso", "precio": "320.00", "descripcion": "", "imagen": null, "activo": true}}
+]

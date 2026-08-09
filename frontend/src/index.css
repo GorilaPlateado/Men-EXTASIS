@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #8B0000;
+    --color-amber: #F5F5DC;
+    --color-gold: #D4AF37;
+    --color-dark: #2C2C2C;
+    --font-playfair: 'Playfair Display', serif;
+    --font-inter: 'Inter', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-amber-50 text-gray-800 font-inter antialiased;
+  }
+}
+
+@layer components {
+  .hero-title {
+    @apply text-4xl md:text-6xl lg:text-7xl font-playfair font-bold text-white drop-shadow-2xl;
+  }
+
+  .hero-subtitle {
+    @apply text-lg md:text-xl text-gray-100 drop-shadow-lg;
+  }
+
+  .product-card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300;
+  }
+
+  .product-card:hover {
+    @apply shadow-2xl;
+  }
+
+  .category-title {
+    @apply text-2xl md:text-3xl font-playfair text-red-900 mb-4;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
