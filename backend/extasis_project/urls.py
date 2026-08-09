@@ -11,6 +11,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='http://localhost:5173/', permanent=False), name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('menu_app.urls')),
+    path('api/auth/', include('auth_app.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
 

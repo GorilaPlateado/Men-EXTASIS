@@ -39,13 +39,13 @@ export default function VipMenu() {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden min-h-screen"
       style={{ background: 'linear-gradient(160deg, #1a0a04 0%, #2d1206 50%, #1a0804 100%)' }}
     >
       {/* Línea decorativa dorada superior */}
       <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, transparent, #D4AF37 40%, #D4AF37 60%, transparent)' }} />
 
-      <div className="container mx-auto px-4 py-14">
+      <div className="container mx-auto px-4 pt-24 pb-14">
 
         {/* Encabezado de sección */}
         <motion.div
