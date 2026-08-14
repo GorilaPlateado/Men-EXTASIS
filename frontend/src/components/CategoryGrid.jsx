@@ -1,10 +1,14 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import ProductCard from './ProductCard'
+import ProductModal from './ProductModal'
 import { useApiUrl } from '../hooks/useApiUrl'
 
 export default function CategoryGrid() {
   const apiUrl = useApiUrl()
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
+  const [modalAbierto, setModalAbierto] = useState(false)
 
   const { data: categorias = [], isLoading, isError } = useQuery({
     queryKey: ['categorias'],
@@ -14,6 +18,8 @@ export default function CategoryGrid() {
         return res.json()
       }),
     staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 15,
+    keepPreviousData: true,
   })
 
   if (isLoading) {
@@ -32,6 +38,16 @@ export default function CategoryGrid() {
         <p className="text-red-900 font-bold">No se pudo cargar el menú. Por favor, intenta más tarde.</p>
       </div>
     )
+  }
+
+  const handleOpenModal = (producto) => {
+    setProductoSeleccionado(producto)
+    setModalAbierto(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalAbierto(false)
+    setProductoSeleccionado(null)
   }
 
   return (
@@ -84,7 +100,7 @@ export default function CategoryGrid() {
                     }}
                     transition={{ duration: 0.5, delay: prodIndex * 0.05 }}
                   >
-                    <ProductCard producto={producto} index={prodIndex} />
+                    <ProductCard producto={producto} index={prodIndex} onClick={handleOpenModal} />
                   </motion.div>
                 ))}
               </motion.div>
@@ -92,6 +108,7 @@ export default function CategoryGrid() {
           )
         })}
       </div>
+      <ProductModal producto={productoSeleccionado} open={modalAbierto} onClose={handleCloseModal} />
     </section>
   )
 }

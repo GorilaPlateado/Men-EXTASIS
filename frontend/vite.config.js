@@ -10,6 +10,9 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     strictPort: false,
+    headers: {
+      'Cache-Control': 'public, max-age=300',
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:8000',
@@ -31,6 +34,8 @@ export default defineConfig({
   build: {
     outDir: '../dist/frontend',
     emptyOutDir: true,
+    assetsInlineLimit: 8192,
+    sourcemap: false,
   },
   define: {
     global: 'globalThis',

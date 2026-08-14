@@ -2,6 +2,7 @@
 Serializers para la API REST del menú.
 Optimizados con select_related para evitar N+1 queries.
 """
+from django.utils.html import strip_tags
 from rest_framework import serializers
 from .models import Categoria, Producto, CategoriaVIP, ProductoVIP
 
@@ -13,6 +14,19 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto
         fields = ['id', 'nombre', 'precio', 'descripcion', 'imagen_url', 'activo']
         read_only_fields = ['id']
+
+    def validate_nombre(self, value):
+        return value.strip()
+
+    def validate_precio(self, value):
+        if value is None or value < 0:
+            raise serializers.ValidationError('El precio debe ser un valor positivo.')
+        return value
+
+    def validate_descripcion(self, value):
+        if value is None:
+            return value
+        return strip_tags(value).strip()
 
     def get_imagen_url(self, obj):
         """Devuelve URL absoluta de la imagen"""
@@ -29,6 +43,14 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = ['id', 'nombre', 'orden', 'productos']
 
+    def validate_nombre(self, value):
+        return value.strip()
+
+    def validate_orden(self, value):
+        if value < 0:
+            raise serializers.ValidationError('El orden debe ser un número entero positivo.')
+        return value
+
     def to_representation(self, instance):
         data = super().to_representation(instance)
         # Filtrar productos inactivos
@@ -43,6 +65,19 @@ class ProductoVIPSerializer(serializers.ModelSerializer):
         model = ProductoVIP
         fields = ['id', 'nombre', 'precio', 'descripcion', 'imagen_url', 'activo']
         read_only_fields = ['id']
+
+    def validate_nombre(self, value):
+        return value.strip()
+
+    def validate_precio(self, value):
+        if value is None or value < 0:
+            raise serializers.ValidationError('El precio debe ser un valor positivo.')
+        return value
+
+    def validate_descripcion(self, value):
+        if value is None:
+            return value
+        return strip_tags(value).strip()
 
     def get_imagen_url(self, obj):
         if obj.imagen:

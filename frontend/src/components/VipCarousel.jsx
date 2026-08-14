@@ -23,9 +23,10 @@ const CARD_BG = {
    '2': '#8a7a62',
 }
 
-export default function VipCarousel({ productos = [] }) {
+export default function VipCarousel({ productos = [], onProductClick }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
 
   const total = productos.length
 
@@ -37,6 +38,28 @@ export default function VipCarousel({ productos = [] }) {
 
   const prev = () => goTo(activeIndex - 1)
   const next = () => goTo(activeIndex + 1)
+
+  const handleDragEnd = (event, info) => {
+    const offset = info.offset.x
+    const velocity = info.velocity.x
+
+    if (Math.abs(offset) < 80 && Math.abs(velocity) < 500) {
+      setIsDragging(false)
+      return
+    }
+
+    if (offset < 0) {
+      next()
+    } else if (offset > 0) {
+      prev()
+    }
+
+    setIsDragging(false)
+  }
+
+  const handleDragStart = () => {
+    setIsDragging(true)
+  }
 
   if (total === 0) {
     return (
@@ -87,14 +110,26 @@ export default function VipCarousel({ productos = [] }) {
                   zIndex: pos.zIndex,
                 }}
                 transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-                onClick={() => !isCenter && goTo(activeIndex + slot)}
+                onClick={() => {
+                  if (isCenter) {
+                    onProductClick?.(producto)
+                  } else {
+                    goTo(activeIndex + slot)
+                  }
+                }}
                 className="absolute"
                 style={{
                   width: '168px',
-                  cursor: isCenter ? 'default' : 'pointer',
+                  cursor: 'pointer',
                   filter: `brightness(${pos.brightness})`,
                   transformOrigin: 'center center',
                 }}
+                drag={slot === 0 ? 'x' : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                dragMomentum={false}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
               >
                 <div
                   className="relative rounded-2xl overflow-hidden flex flex-col"

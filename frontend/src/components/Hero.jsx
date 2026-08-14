@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useApiUrl } from '../hooks/useApiUrl'
 import MenuPanel from './MenuPanel'
 import ProductosPanel from './ProductosPanel'
+import ProductModal from './ProductModal'
 
 export default function Hero() {
   const apiUrl = useApiUrl()
@@ -20,6 +21,9 @@ export default function Hero() {
     staleTime: 1000 * 60 * 5,
   })
 
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
+  const [modalAbierto, setModalAbierto] = useState(false)
+
   const handleToggleMenu = () => {
     if (menuAbierto) {
       setMenuAbierto(false)
@@ -30,6 +34,16 @@ export default function Hero() {
         setCategoriaActiva(prev => prev ?? categorias[0])
       }
     }
+  }
+
+  const handleOpenModal = (producto) => {
+    setProductoSeleccionado(producto)
+    setModalAbierto(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalAbierto(false)
+    setProductoSeleccionado(null)
   }
 
   return (
@@ -133,8 +147,9 @@ export default function Hero() {
                 isOpen={menuAbierto}
               />
               {categoriaActiva && (
-                <ProductosPanel categoria={categoriaActiva} />
+                <ProductosPanel categoria={categoriaActiva} onProductClick={handleOpenModal} />
               )}
+              <ProductModal producto={productoSeleccionado} open={modalAbierto} onClose={handleCloseModal} />
             </div>
           </>
         )}

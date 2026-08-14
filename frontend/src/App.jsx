@@ -18,7 +18,6 @@ const queryClient = new QueryClient({
   },
 })
 
-// Layout compartido: Navbar fija + Footer
 function Layout({ children }) {
   return (
     <div className="min-h-screen flex flex-col">
@@ -37,31 +36,17 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            {/* Pública */}
             <Route path="/login" element={<Login />} />
-
-            {/* Protegidas */}
-            <Route
-              path="/"
-              element={
-                <RutaProtegida>
-                  <Layout>
-                    <Hero />
-                  </Layout>
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/vip"
-              element={
-                <RutaProtegida>
-                  <Layout>
-                    <VipMenu />
-                  </Layout>
-                </RutaProtegida>
-              }
-            />
-
+            <Route path="/" element={
+              <RutaProtegida>
+                <Layout><Hero /></Layout>
+              </RutaProtegida>
+            } />
+            <Route path="/vip" element={
+              <RutaProtegida>
+                <Layout><VipMenu /></Layout>
+              </RutaProtegida>
+            } />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>

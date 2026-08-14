@@ -18,16 +18,39 @@ export function AuthProvider({ children }) {
 
   // Al montar, restaurar sesión desde localStorage
   useEffect(() => {
-    const token = localStorage.getItem('access_token')
-    const usuarioGuardado = localStorage.getItem('usuario')
-    if (token && usuarioGuardado) {
+    const initialize = async () => {
+      const token = localStorage.getItem('access_token')
+      if (!token) {
+        setCargando(false)
+        return
+      }
+
       try {
-        setUsuario(JSON.parse(usuarioGuardado))
+        const res = await fetch(`${API_URL}/auth/me/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!res.ok) {
+          throw new Error('Sesión inválida')
+        }
+
+        const data = await res.json()
+        localStorage.setItem('usuario', JSON.stringify(data))
+        setUsuario(data)
       } catch {
-        localStorage.clear()
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('usuario')
+        setUsuario(null)
+      } finally {
+        setCargando(false)
       }
     }
-    setCargando(false)
+
+    initialize()
   }, [])
 
   const login = useCallback(async (username, password) => {
