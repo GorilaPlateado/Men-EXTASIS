@@ -40,7 +40,7 @@ export default function ProductoModal({ producto, onClose }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
           onClick={onClose}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-auto"
           style={{ background: 'rgba(5, 2, 1, 0.85)', backdropFilter: 'blur(6px)' }}
           aria-modal="true"
           role="dialog"

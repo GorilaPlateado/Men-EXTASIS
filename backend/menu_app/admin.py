@@ -3,6 +3,7 @@ Admin configuration for menu_app.
 Gestión CRUD de categorías y productos con vista previa de imagen en tiempo real.
 """
 from django.contrib import admin
+from django import forms
 from django.utils.html import format_html
 from .models import Categoria, Producto, CategoriaVIP, ProductoVIP
 
@@ -53,6 +54,42 @@ def _preview_widget(obj):
     return format_html('{}{}', img_html, PREVIEW_JS)
 
 
+DESCRIPCION_HELP = (
+    'Texto breve que aparece en la parte trasera de la tarjeta del producto '
+    'en el menú (tráelo lo suficientemente corto para que encaje).'
+)
+
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = '__all__'
+        widgets = {
+            'descripcion': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Ej.: Jugoso bistec de res con cebolla salteada y papas fritas…',
+            }),
+        }
+        help_texts = {
+            'descripcion': DESCRIPCION_HELP,
+        }
+
+
+class ProductoVIPForm(forms.ModelForm):
+    class Meta:
+        model = ProductoVIP
+        fields = '__all__'
+        widgets = {
+            'descripcion': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Ej.: Selección premium con vino de autor y decoración especial…',
+            }),
+        }
+        help_texts = {
+            'descripcion': DESCRIPCION_HELP,
+        }
+
+
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'orden', 'activo', 'num_productos', 'thumbnail']
@@ -91,6 +128,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
+    form = ProductoForm
     list_display = ['nombre', 'categoria', 'precio', 'activo', 'thumbnail']
     list_filter = ['categoria', 'activo']
     list_editable = ['precio', 'activo']
@@ -105,9 +143,8 @@ class ProductoAdmin(admin.ModelAdmin):
         ('Imagen', {
             'fields': ['imagen', 'vista_previa'],
         }),
-        ('Detalles', {
+        ('Descripción (se muestra al girar la tarjeta)', {
             'fields': ['descripcion'],
-            'classes': ['collapse'],
         }),
     ]
 
@@ -173,6 +210,7 @@ class CategoriaVIPAdmin(admin.ModelAdmin):
 
 @admin.register(ProductoVIP)
 class ProductoVIPAdmin(admin.ModelAdmin):
+    form = ProductoVIPForm
     list_display = ['nombre', 'categoria', 'precio', 'activo', 'thumbnail']
     list_filter = ['categoria', 'activo']
     list_editable = ['precio', 'activo']
@@ -183,7 +221,7 @@ class ProductoVIPAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['categoria', 'nombre', 'precio', 'activo']}),
         ('Imagen', {'fields': ['imagen', 'vista_previa']}),
-        ('Detalles', {'fields': ['descripcion'], 'classes': ['collapse']}),
+        ('Descripción (se muestra al girar la tarjeta)', {'fields': ['descripcion']}),
     ]
 
     def thumbnail(self, obj):

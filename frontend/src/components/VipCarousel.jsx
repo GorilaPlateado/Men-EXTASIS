@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import FlipCard from './FlipCard'
 
 function formatPrecio(precio) {
   return `${Number(precio).toLocaleString('es-ES', { minimumFractionDigits: 0 })} CUP`
@@ -100,6 +101,22 @@ export default function VipCarousel({ productos = [], onProductClick }) {
             const bg = CARD_BG[String(slot)]
             const isCenter = slot === 0
 
+            const imagen = producto?.imagen_url ? (
+              <img
+                src={producto.imagen_url}
+                alt={producto?.nombre}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                draggable={false}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.12)' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 opacity-40" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={1.2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            )
+
             return (
               <motion.div
                 key={`${slot}-${itemIndex}`}
@@ -111,11 +128,7 @@ export default function VipCarousel({ productos = [], onProductClick }) {
                 }}
                 transition={{ type: 'spring', stiffness: 280, damping: 28 }}
                 onClick={() => {
-                  if (isCenter) {
-                    onProductClick?.(producto)
-                  } else {
-                    goTo(activeIndex + slot)
-                  }
+                  if (!isCenter) goTo(activeIndex + slot)
                 }}
                 className="absolute"
                 style={{
@@ -131,19 +144,9 @@ export default function VipCarousel({ productos = [], onProductClick }) {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
               >
-                <div
-                  className="relative rounded-2xl overflow-hidden flex flex-col"
-                  style={{
-                    background: bg,
-                    height: isCenter ? '290px' : '240px',
-                    boxShadow: isCenter
-                      ? '0 16px 48px rgba(0,0,0,0.45)'
-                      : '0 6px 20px rgba(0,0,0,0.25)',
-                    transition: 'height 0.3s ease',
-                  }}
-                >
-                  {/* Icono campana solo en la tarjeta central */}
-                  {isCenter && (
+                {isCenter ? (
+                  <>
+                    {/* Icono campana solo en la tarjeta central */}
                     <div
                       className="absolute -top-4 left-1/2 -translate-x-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center"
                       style={{ background: '#C04A1A', boxShadow: '0 2px 8px rgba(0,0,0,0.3)' }}
@@ -152,64 +155,105 @@ export default function VipCarousel({ productos = [], onProductClick }) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007 17h10a1 1 0 00.95-1.3L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
                       </svg>
                     </div>
-                  )}
 
-                  {/* Imagen del producto */}
-                  <div className="flex-1 overflow-hidden" style={{ borderRadius: '14px 14px 0 0' }}>
-                    {producto?.imagen_url ? (
-                      <img
-                        src={producto.imagen_url}
-                        alt={producto?.nombre}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        draggable={false}
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full flex items-center justify-center"
-                        style={{ background: 'rgba(255,255,255,0.12)' }}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 opacity-40" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={1.2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Dot inferior */}
-                  <div className="flex justify-center items-center py-3">
-                    <div
-                      className="rounded-full"
-                      style={{
-                        width: isCenter ? '14px' : '10px',
-                        height: isCenter ? '14px' : '10px',
-                        background: isCenter ? '#C04A1A' : 'rgba(255,255,255,0.5)',
-                        boxShadow: isCenter ? '0 0 0 3px rgba(192,74,26,0.3)' : 'none',
-                        transition: 'all 0.3s ease',
-                      }}
+                    {/* Tarjeta central con giro 3D */}
+                    <FlipCard
+                      className="relative w-full h-[290px]"
+                      front={(
+                        <div
+                          className="relative w-full h-full rounded-2xl overflow-hidden flex flex-col"
+                          style={{ background: bg, boxShadow: '0 16px 48px rgba(0,0,0,0.45)' }}
+                        >
+                          <div className="flex-1 overflow-hidden" style={{ borderRadius: '14px 14px 0 0' }}>
+                            {imagen}
+                          </div>
+                          <div className="flex justify-center items-center py-3">
+                            <div
+                              className="rounded-full"
+                              style={{
+                                width: '14px',
+                                height: '14px',
+                                background: '#C04A1A',
+                                boxShadow: '0 0 0 3px rgba(192,74,26,0.3)',
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      back={(
+                        <div
+                          className="relative w-full h-full rounded-2xl overflow-hidden flex flex-col justify-between p-4"
+                          style={{
+                            background: 'linear-gradient(160deg, #8B3A1A 0%, #7a3216 55%, #2d1206 100%)',
+                            border: '1px solid rgba(212,175,55,0.35)',
+                            boxShadow: '0 16px 48px rgba(0,0,0,0.45)',
+                          }}
+                        >
+                          <div>
+                            <p className="font-playfair font-semibold text-white text-base leading-tight line-clamp-3">
+                              {producto?.nombre}
+                            </p>
+                            <p className="font-inter text-amber-200/80 text-xs leading-relaxed line-clamp-4 mt-2">
+                              {producto?.descripcion || 'Producto seleccionable — toca Ver detalles para más información.'}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="font-inter text-lg font-bold text-amber-300">
+                              {producto?.precio ? formatPrecio(producto.precio) : ''}
+                            </p>
+                            <button
+                              type="button"
+                              onClick={(e) => { e.stopPropagation(); onProductClick?.(producto) }}
+                              className="mt-2 w-full flex items-center justify-center gap-1 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2 rounded-lg transition-colors duration-200"
+                            >
+                              Ver detalles
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     />
-                  </div>
-                </div>
 
-                {/* Info debajo de la tarjeta central */}
-                {isCenter && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-3 text-center px-2"
-                  >
-                    <p className="font-playfair font-semibold text-base leading-tight line-clamp-2"
-                      style={{ color: '#5a2d0c' }}>
-                      {producto?.nombre}
-                    </p>
-                    {producto?.precio && (
-                      <p className="font-inter text-sm font-semibold mt-1"
-                        style={{ color: '#B8860B' }}>
-                        {formatPrecio(producto.precio)}
+                    {/* Info debajo de la tarjeta central */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-3 text-center px-2"
+                    >
+                      <p className="font-playfair font-semibold text-base leading-tight line-clamp-2"
+                        style={{ color: '#5a2d0c' }}>
+                        {producto?.nombre}
                       </p>
-                    )}
-                  </motion.div>
+                      {producto?.precio && (
+                        <p className="font-inter text-sm font-semibold mt-1"
+                          style={{ color: '#B8860B' }}>
+                          {formatPrecio(producto.precio)}
+                        </p>
+                      )}
+                    </motion.div>
+                  </>
+                ) : (
+                  <div
+                    className="relative rounded-2xl overflow-hidden flex flex-col"
+                    style={{ background: bg, height: '240px', boxShadow: '0 6px 20px rgba(0,0,0,0.25)' }}
+                  >
+                    <div className="flex-1 overflow-hidden" style={{ borderRadius: '14px 14px 0 0' }}>
+                      {imagen}
+                    </div>
+                    <div className="flex justify-center items-center py-3">
+                      <div
+                        className="rounded-full"
+                        style={{
+                          width: '10px',
+                          height: '10px',
+                          background: 'rgba(255,255,255,0.5)',
+                        }}
+                      />
+                    </div>
+                  </div>
                 )}
               </motion.div>
             )
