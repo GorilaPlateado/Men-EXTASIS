@@ -13,7 +13,7 @@ module.exports = {
         'gold': '#D4AF37',
       },
       fontFamily: {
-        'playfair': ['Playfair Display', 'serif'],
+        'playfair': ['MeaCulpa', 'cursive'],
         'inter': ['Inter', 'sans-serif'],
         'script': ['Great Vibes', 'cursive'],
       },

@@ -21,9 +21,8 @@ export default function ProductosPanel({ categoria }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="absolute top-0 right-0 h-full z-20 flex flex-col py-6 px-5 overflow-y-auto pointer-events-auto"
+          className="relative sm:absolute sm:top-0 sm:bottom-0 sm:left-64 sm:right-0 flex-1 min-w-0 flex flex-col py-4 sm:py-6 px-4 sm:px-5 overflow-y-auto pointer-events-auto"
           style={{
-            left: '256px',
             background: 'rgba(10, 5, 3, 0.72)',
             backdropFilter: 'blur(14px)',
           }}
@@ -41,7 +40,7 @@ export default function ProductosPanel({ categoria }) {
           {productos.length === 0 ? (
             <p className="text-gray-400 text-sm font-inter">Sin productos disponibles.</p>
           ) : (
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {productos.map((producto, i) => (
                 <motion.button
                   key={producto.id}

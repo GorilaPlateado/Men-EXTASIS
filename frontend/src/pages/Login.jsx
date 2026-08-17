@@ -40,7 +40,7 @@ export default function Login() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-4"
+      className="min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #0f0503 0%, #1a0804 60%, #0c0302 100%)' }}
     >
       {/* Partículas decorativas */}

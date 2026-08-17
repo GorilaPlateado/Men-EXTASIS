@@ -139,7 +139,7 @@ export default function Hero() {
             />
 
             {/* Panel categorías */}
-            <div key="panels" className="absolute inset-0 z-40 pointer-events-none">
+            <div key="panels" className="absolute inset-0 z-40 pointer-events-none flex flex-col sm:block">
               <MenuPanel
                 categorias={categorias}
                 categoriaActiva={categoriaActiva}
